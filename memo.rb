@@ -1,21 +1,18 @@
 require "csv"
-puts "1(新規でメモを作成) 2(既存のメモ編集する) 3(メモを削除する）"
+puts "以下の数字を入力してください"
+puts "1(新規でメモを作成) 2(既存のメモ編集する)"
 
-num_type = gets.to_i
-if num_type == 1
+num_type = gets.to_i                                     #数字を押される
+if num_type == 1                                         #1出力
     puts "拡張子を除いたファイルを入力してください"
-    
-    CSV.open('test.csv','w+') do |file_name|
-        file_name << [gets.chomp]
-    end
+    file_name = gets.chomp                               #ファイル名出力
+    CSV.open("#{file_name}.csv","w+") do |contents|
         puts "メモしたい内容を記入してください"
         puts "完了したら Ctr + D を押します"
-    CSV.open('test.csv','a+') do |contents|
-        contents << [gets.chomp]
-    end
-    num_type = STDIN.read
-    elsif num_type == 2
-        CSV.read('test.csv')
-    elsif num_type == 3
-        CSV.open('test.csv','w')
+        contents << [$stdin.read]                         #内容出力
+        end
+elsif num_type == 2
+        puts "既存のメモを編集します"
+else
+        puts "1と2を入力してください"
 end
